@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT $JAVA_OPTS -Dspring.config.location=src/resources/application-prod.properties -jar target/WebDaw-0.0.1-SNAPSHOT.jar
