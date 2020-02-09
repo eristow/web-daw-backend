@@ -6,6 +6,7 @@ import com.seniorproj.WebDaw.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,22 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
+    {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    // Register for an account
+    @PostMapping("/sign-up")
+    public void signUp(@RequestBody User user)
+    {
+        user.setPass(bCryptPasswordEncoder.encode(user.getPass()));
+        userRepository.save(user);
+    }
 
     // CREATE (POST)
 
