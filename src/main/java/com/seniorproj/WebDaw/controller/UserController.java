@@ -1,7 +1,6 @@
 package com.seniorproj.WebDaw.controller;
 
 import com.seniorproj.WebDaw.exception.ResourceNotFoundException;
-import com.seniorproj.WebDaw.model.User;
 import com.seniorproj.WebDaw.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

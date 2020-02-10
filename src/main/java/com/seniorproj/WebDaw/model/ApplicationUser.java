@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 //import javax.persistence.GeneratedValue;
 
 @Document(collection = "user")
-public class User {
+public class ApplicationUser {
 
     @Id
 //    @GeneratedValue
@@ -14,10 +14,10 @@ public class User {
     private String name;
     private String pass;
 
-    public User() {
+    public ApplicationUser() {
     }
 
-    public User(String name) {
+    public ApplicationUser(String name) {
         this.name = name;
     }
 
