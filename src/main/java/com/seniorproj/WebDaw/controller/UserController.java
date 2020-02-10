@@ -2,6 +2,8 @@ package com.seniorproj.WebDaw.controller;
 
 import com.seniorproj.WebDaw.exception.ResourceNotFoundException;
 
+import com.seniorproj.WebDaw.model.ApplicationUser;
+import com.seniorproj.WebDaw.repo.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,54 +16,54 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private ApplicationUserRepository applicationUserRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
+    public UserController(ApplicationUserRepository applicationUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
     {
-        this.userRepository = userRepository;
+        this.applicationUserRepository = applicationUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     // Register for an account
     @PostMapping("/sign-up")
-    public void signUp(@RequestBody User user)
+    public void signUp(@RequestBody ApplicationUser applicationUser)
     {
-        user.setPass(bCryptPasswordEncoder.encode(user.getPass()));
-        userRepository.save(user);
+        applicationUser.setPass(bCryptPasswordEncoder.encode(applicationUser.getPass()));
+        applicationUserRepository.save(applicationUser);
     }
 
     // CREATE (POST)
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public User add(@RequestBody User user) {
-        return userRepository.save(user);
+    public ApplicationUser add(@RequestBody ApplicationUser applicationUser) {
+        return applicationUserRepository.save(applicationUser);
     }
 
     // READ (GET)
 
     @GetMapping
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<ApplicationUser> getAll() {
+        return applicationUserRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public User getOne(@PathVariable String id) {
-        return userRepository.findById(id)
+    public ApplicationUser getOne(@PathVariable String id) {
+        return applicationUserRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
     }
 
     // UPDATE
 
     @PutMapping(value = "/{id}")
-    public User update(@PathVariable String id, @RequestBody User updatedUser) {
-        User user = userRepository.findById(id)
+    public ApplicationUser update(@PathVariable String id, @RequestBody ApplicationUser updatedApplicationUser) {
+        ApplicationUser applicationUser = applicationUserRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
-        user.setName(updatedUser.getName());
-        user.setPass(updatedUser.getPass());
-        return userRepository.save(user);
+        applicationUser.setName(updatedApplicationUser.getName());
+        applicationUser.setPass(updatedApplicationUser.getPass());
+        return applicationUserRepository.save(applicationUser);
     }
 
     // DELETE
@@ -69,9 +71,8 @@ public class UserController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void delete(@PathVariable String id) {
-        User user = userRepository.findById(id)
+        ApplicationUser applicationUser = applicationUserRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
-        userRepository.delete(user);
+        applicationUserRepository.delete(applicationUser);
     }
-
 }
