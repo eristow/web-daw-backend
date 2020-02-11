@@ -1,40 +1,39 @@
 package com.seniorproj.WebDaw.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-//import javax.persistence.GeneratedValue;
-
 @Document(collection = "user")
-public class User {
+public class ApplicationUser {
 
     @Id
-//    @GeneratedValue
-    private String id;
-    private String name;
+    private ObjectId id;
+    private String username;
     private String pass;
 
-    public User() {
+    public ApplicationUser() { }
+
+    public ApplicationUser(ObjectId id, String username, String pass) {
+        this.id = id;
+        this.username = username;
+        this.pass = pass;
     }
 
-    public User(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPass() {

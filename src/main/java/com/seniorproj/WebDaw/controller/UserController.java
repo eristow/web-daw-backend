@@ -1,7 +1,7 @@
 package com.seniorproj.WebDaw.controller;
 
 import com.seniorproj.WebDaw.exception.ResourceNotFoundException;
-import com.seniorproj.WebDaw.model.User;
+import com.seniorproj.WebDaw.model.ApplicationUser;
 import com.seniorproj.WebDaw.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +21,19 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public User add(@RequestBody User user) {
+    public ApplicationUser add(@RequestBody ApplicationUser user) {
         return userRepository.save(user);
     }
 
     // READ (GET)
 
     @GetMapping
-    public List<User> getAll() {
+    public List<ApplicationUser> getAll() {
         return userRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public User getOne(@PathVariable String id) {
+    public ApplicationUser getOne(@PathVariable String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
     }
@@ -41,10 +41,10 @@ public class UserController {
     // UPDATE
 
     @PutMapping(value = "/{id}")
-    public User update(@PathVariable String id, @RequestBody User updatedUser) {
-        User user = userRepository.findById(id)
+    public ApplicationUser update(@PathVariable String id, @RequestBody ApplicationUser updatedUser) {
+        ApplicationUser user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
-        user.setName(updatedUser.getName());
+        user.setUsername(updatedUser.getUsername());
         user.setPass(updatedUser.getPass());
         return userRepository.save(user);
     }
@@ -54,7 +54,7 @@ public class UserController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void delete(@PathVariable String id) {
-        User user = userRepository.findById(id)
+        ApplicationUser user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
         userRepository.delete(user);
     }
