@@ -1,30 +1,36 @@
 package com.seniorproj.WebDaw.model;
 
-import org.bson.types.ObjectId;
+import java.util.Set;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
 public class ApplicationUser {
 
     @Id
-    private ObjectId id;
+    private String id;
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String username;
     private String pass;
+    private boolean enabled;
+    @DBRef
+    private Set<Role> roles;
 
-    public ApplicationUser() { }
-
-    public ApplicationUser(ObjectId id, String username, String pass) {
-        this.id = id;
+    public ApplicationUser(String username, String pass) {
+        super();
         this.username = username;
         this.pass = pass;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -44,7 +50,23 @@ public class ApplicationUser {
         this.pass = pass;
     }
 
-//    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled =  enabled;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "User{" +
 //                "id=" + id +
