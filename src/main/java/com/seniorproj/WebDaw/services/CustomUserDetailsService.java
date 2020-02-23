@@ -17,14 +17,20 @@ import org.springframework.stereotype.Service;
 
 import com.seniorproj.WebDaw.model.ApplicationUser;
 import com.seniorproj.WebDaw.model.Role;
+import com.seniorproj.WebDaw.model.Project;
 import com.seniorproj.WebDaw.repo.RoleRepository;
 import com.seniorproj.WebDaw.repo.UserRepository;
+import com.seniorproj.WebDaw.repo.ProjectRepository;
+
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -34,6 +40,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public ApplicationUser findUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public Project find(String Id) {
+        return projectRepository.find(Id);
     }
 
     public void saveUser(ApplicationUser user) {
