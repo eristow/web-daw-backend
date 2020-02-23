@@ -22,11 +22,17 @@ public class Project {
     public Project() {
     }
 
-    public Project(String projName, String projDuration, String projDateCreated) {
+    public Project(String projName, String projDuration, String projDateCreated, int selectedKit, int vol, int tempo, int[] kick, int[] snare) {
         super();
         this.projName = projName;
         this.projDuration = projDuration;
         this.projDateCreated = projDateCreated;
+        this.selectedKit = selectedKit;
+        this.vol = vol;
+        this.tempo = tempo;
+        // stepState
+        this.kick = kick;
+        this.snare = snare;
     }
 
     public String getId() {
