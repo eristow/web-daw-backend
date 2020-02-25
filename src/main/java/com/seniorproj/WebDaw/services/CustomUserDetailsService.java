@@ -1,10 +1,6 @@
 package com.seniorproj.WebDaw.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,8 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public Project find(String Id) {
-        return projectRepository.find(Id);
+    public Optional<Project> find(String Id) {
+        return projectRepository.findById(Id);
     }
 
     public void saveUser(ApplicationUser user) {
