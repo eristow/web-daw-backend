@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public Optional<Project> find(String Id) {
+    public Optional<Project> findUserById(String Id) {
         return projectRepository.findById(Id);
     }
 
