@@ -2,14 +2,14 @@ package com.seniorproj.WebDaw.controller;
 
 public class AuthBody {
 
-    private String username;
+    private String email;
     private String pass;
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
     public String getPass() {
         return pass;

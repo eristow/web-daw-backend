@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private PasswordEncoder bCryptPasswordEncoder;
 
     public ApplicationUser findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByEmail(username);
     }
 
     public Optional<Project> findUserById(String Id) {
@@ -51,14 +51,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        ApplicationUser user = userRepository.findByUsername(username);
+        ApplicationUser user = userRepository.findByEmail(email);
         if(user != null) {
             List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
             return buildUserForAuthentication(user, authorities);
         } else{
-            throw new UsernameNotFoundException("Username not found");
+            throw new UsernameNotFoundException("Email not found");
         }
     }
 
@@ -73,6 +73,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails buildUserForAuthentication(ApplicationUser user, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPass(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPass(), authorities);
     }
 }

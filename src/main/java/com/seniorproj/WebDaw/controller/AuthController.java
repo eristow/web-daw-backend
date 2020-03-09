@@ -41,24 +41,24 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthBody data) {
         try {
-            String username = data.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPass()));
-            String token = jwtTokenProvider.createToken(username, this.userRepository.findByUsername(username).getRoles());
+            String email = data.getEmail();
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, data.getPass()));
+            String token = jwtTokenProvider.createToken(email, this.userRepository.findByEmail(email).getRoles());
             Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
+            model.put("email", email);
             model.put("token", token);
             return ok(model);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
+            throw new BadCredentialsException("Invalid email/password supplied");
         }
     }
 
     @SuppressWarnings("rawtypes")
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody ApplicationUser user) {
-        ApplicationUser userExists = userDetailsService.findUserByUsername(user.getUsername());
+        ApplicationUser userExists = userDetailsService.findUserByUsername(user.getEmail());
         if (userExists != null) {
-            throw new BadCredentialsException("User with username: " + user.getUsername() + " already exists");
+            throw new BadCredentialsException("User with email: " + user.getEmail() + " already exists");
         }
         userDetailsService.saveUser(user);
         Map<Object, Object> model = new HashMap<>();

@@ -4,5 +4,5 @@ import com.seniorproj.WebDaw.model.ApplicationUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<ApplicationUser, String> {
-    ApplicationUser findByUsername(String username);
+    ApplicationUser findByEmail(String email);
 }
