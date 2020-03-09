@@ -1,8 +1,24 @@
 package com.seniorproj.WebDaw.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.seniorproj.WebDaw.model.TrackStepState;
+import com.seniorproj.WebDaw.model.TrackVol;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "config",
+        "vol",
+        "bpm",
+        "playing",
+        "stepState",
+        "trackVol",
+        "currentStep"
+})
 @Document(collection = "projects")
 public class Project {
 
@@ -14,25 +30,28 @@ public class Project {
 
     int selectedKit;
     int vol;
-    int tempo;
-    // stepState
-    int kick[] = new int[16];
-    int snare[] = new int[16];
+    int bpm;
+    // stepState -- Rename these to generic types in case the user wants to rename them.
+    @JsonProperty("stepState")
+    private TrackStepState stepState = null;
+
+    //trackVol -- Rename these to generic types in case the user wants to rename them.
+    @JsonProperty("trackVol")
+    private TrackVol trackVol = null;
 
     public Project() {
     }
 
-    public Project(String projName, String projDuration, String projDateCreated, int selectedKit, int vol, int tempo, int[] kick, int[] snare) {
+    public Project(String projName, String projDuration, String projDateCreated, int selectedKit, int vol, int bpm, TrackStepState stepState, TrackVol trackVol) {
         super();
         this.projName = projName;
         this.projDuration = projDuration;
         this.projDateCreated = projDateCreated;
         this.selectedKit = selectedKit;
         this.vol = vol;
-        this.tempo = tempo;
-        // stepState
-        this.kick = kick;
-        this.snare = snare;
+        this.bpm = bpm;
+        this.stepState = stepState;
+        this.trackVol = trackVol;
     }
 
     public String getId() {
@@ -75,35 +94,43 @@ public class Project {
         this.selectedKit = selectedKit;
     }
 
+    @JsonProperty("vol")
     public int getVol() {
         return vol;
     }
 
+    @JsonProperty("vol")
     public void setVol(int vol) {
         this.vol = vol;
     }
 
-    public int getTempo() {
-        return tempo;
+    @JsonProperty("bpm")
+    public int getBpm() {
+        return bpm;
     }
 
-    public void setTempo(int tempo) {
-        this.tempo = tempo;
+    @JsonProperty("bpm")
+    public void setBpm(int bpm) {
+        this.bpm = bpm;
     }
 
-    public int[] getKick() {
-        return kick;
+    @JsonProperty("stepState")
+    public TrackStepState getStepState() {
+        return stepState;
     }
 
-    public void setKick(int[] kick) {
-        this.kick = kick;
+    @JsonProperty("stepState")
+    public void setStepState(TrackStepState stepState) {
+        this.stepState = stepState;
     }
 
-    public int[] getSnare() {
-        return snare;
+    @JsonProperty("trackVol")
+    public TrackVol getTrackVol() {
+        return trackVol;
     }
 
-    public void setSnare(int[] snare) {
-        this.snare = snare;
+    @JsonProperty("trackVol")
+    public void setTrackVol(TrackVol trackVol) {
+        this.trackVol = trackVol;
     }
 }

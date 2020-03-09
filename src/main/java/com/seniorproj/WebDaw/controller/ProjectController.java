@@ -22,7 +22,6 @@ public class ProjectController {
     @RequestMapping(method=RequestMethod.POST, value="/api/projects")
     public String save(@RequestBody Project project) {
         projectRepository.save(project);
-
         return project.getId();
     }
 
