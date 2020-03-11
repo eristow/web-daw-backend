@@ -11,6 +11,7 @@ import com.seniorproj.WebDaw.model.TrackVol;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "title",
         "config",
         "vol",
         "bpm",
@@ -24,6 +25,7 @@ public class Project {
 
     @Id
     String id;
+    @JsonProperty("title")
     String projName;
     String projDuration;
     String projDateCreated;
@@ -62,10 +64,12 @@ public class Project {
         this.id = id;
     }
 
+    @JsonProperty("title")
     public String getProjName() {
         return projName;
     }
 
+    @JsonProperty("title")
     public void setProjName(String projName) {
         this.projName = projName;
     }
