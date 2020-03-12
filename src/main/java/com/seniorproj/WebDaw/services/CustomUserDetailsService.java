@@ -34,8 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
-    public ApplicationUser findUserByUsername(String username) {
-        return userRepository.findByEmail(username);
+    public ApplicationUser findUserByUsername(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public Optional<Project> findUserById(String Id) {
