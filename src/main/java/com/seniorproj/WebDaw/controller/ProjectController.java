@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000", "https://web-daw-frontend.herokuapp.com"})
 public class ProjectController {
 
     @Autowired
