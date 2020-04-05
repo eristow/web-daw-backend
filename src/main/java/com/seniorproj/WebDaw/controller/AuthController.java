@@ -42,11 +42,13 @@ public class AuthController {
     public ResponseEntity login(@RequestBody AuthBody data) {
         try {
             String email = data.getEmail();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, data.getPass()));
+            String hash = this.userRepository.findByEmail(email).getPass();
+            // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, data.getPass()));
             String token = jwtTokenProvider.createToken(email, this.userRepository.findByEmail(email).getRoles());
             Map<Object, Object> model = new HashMap<>();
             model.put("email", email);
             model.put("token", token);
+            model.put("hash", hash);
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid email/password supplied");
