@@ -3,6 +3,7 @@ package com.seniorproj.WebDaw.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.seniorproj.WebDaw.model.Product;
 import com.seniorproj.WebDaw.repo.ProductRepository;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000", "https://web-daw-frontend.herokuapp.com"})
 public class ProductController {
 
     @Autowired
